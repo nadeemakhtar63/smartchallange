@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:smartchallange/ApiService/AuthService.dart';
-import 'package:smartchallange/ModelClasse/DataModel.dart';
+import 'package:smartchallange/ModelClasse/AuthModel.dart';
 import 'package:smartchallange/Widget/my_text_field.dart';
 
 class LogInScreen extends StatefulWidget {
@@ -9,6 +9,7 @@ class LogInScreen extends StatefulWidget {
   @override
   State<LogInScreen> createState() => _LogInScreenState();
 }
+
 class _LogInScreenState extends State<LogInScreen> {
   // getdata()async{
   //   final authService = AuthService();
@@ -16,7 +17,7 @@ class _LogInScreenState extends State<LogInScreen> {
   //   print(authModel!.data!.user!.firstName);
   // }
   final authService = AuthService();
-  late final AuthModel? authModel ;
+  late final AuthModel? authModel;
   // = await authService.authenticateUser('demo@barashada.com','demo123');
   TextEditingController email = TextEditingController();
   TextEditingController password = TextEditingController();
@@ -26,6 +27,7 @@ class _LogInScreenState extends State<LogInScreen> {
     // getdata();
     super.initState();
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -36,36 +38,71 @@ class _LogInScreenState extends State<LogInScreen> {
             mainAxisSize: MainAxisSize.max,
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              const SizedBox(height: 20,),
-              Image.asset('assets/catdogimage.png',width: 200,height: 200,),
-              const SizedBox(height: 5,),
+              const SizedBox(
+                height: 20,
+              ),
+              Image.asset(
+                'assets/catdogimage.png',
+                width: 200,
+                height: 200,
+              ),
+              const SizedBox(
+                height: 5,
+              ),
               Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: const [
-                  Text('Log In to your Account', style: TextStyle(fontSize: 18, color: Colors.black, fontWeight: FontWeight.bold), textAlign: TextAlign.left,),
+                  Text(
+                    'Log In to your Account',
+                    style: TextStyle(
+                        fontSize: 18,
+                        color: Colors.black,
+                        fontWeight: FontWeight.bold),
+                    textAlign: TextAlign.left,
+                  ),
                 ],
               ),
-              const SizedBox(height: 20,),
+              const SizedBox(
+                height: 20,
+              ),
               MyTextField(
-                prefixIcon: IconButton(icon: Icon(Icons.email_outlined, color: Colors.blue,), onPressed: () {  },),
+                prefixIcon: IconButton(
+                  icon: Icon(
+                    Icons.email_outlined,
+                    color: Colors.blue,
+                  ),
+                  onPressed: () {},
+                ),
                 controller: email,
                 label: 'Email',
                 keyboardType: TextInputType.emailAddress,
               ),
-              const SizedBox(height: 15,),
+              const SizedBox(
+                height: 15,
+              ),
               MyTextField(
-                prefixIcon: IconButton(icon: Icon(Icons.lock_outlined, color: Colors.blue,), onPressed: () {  },),
+                prefixIcon: IconButton(
+                  icon: Icon(
+                    Icons.lock_outlined,
+                    color: Colors.blue,
+                  ),
+                  onPressed: () {},
+                ),
                 controller: password,
                 label: 'Password',
                 obsecureText: true,
               ),
-              const SizedBox(height: 10,),
+              const SizedBox(
+                height: 10,
+              ),
               const Divider(),
-              const SizedBox(height: 10,),
+              const SizedBox(
+                height: 10,
+              ),
               GestureDetector(
                 onTap: () {
-                  if(loginValidation()){
+                  if (loginValidation()) {
                     authService.authenticateUser(email.text, password.text);
                     // controller.login(email.text,password.text);
                   }
@@ -78,17 +115,18 @@ class _LogInScreenState extends State<LogInScreen> {
                   height: 40,
                   width: double.infinity,
                   child: const Center(
-                      child: Text('Log In',
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 20
-                        ),
-                      )
-                  ),
+                      child: Text(
+                    'Log In',
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 20),
+                  )),
                 ),
               ),
-              const SizedBox(height: 12,),
+              const SizedBox(
+                height: 12,
+              ),
               Center(
                 child: GestureDetector(
                   onTap: () {
@@ -99,8 +137,7 @@ class _LogInScreenState extends State<LogInScreen> {
                     style: TextStyle(
                         fontWeight: FontWeight.bold,
                         color: Colors.blue,
-                        fontSize: 18
-                    ),
+                        fontSize: 18),
                   ),
                 ),
               ),
@@ -110,14 +147,14 @@ class _LogInScreenState extends State<LogInScreen> {
       ),
     );
   }
-  bool loginValidation(){
-    if(email.text.trim().length==0){
+
+  bool loginValidation() {
+    if (email.text.trim().length == 0) {
       Fluttertoast.showToast(msg: 'Email is required');
 
       return false;
     }
-    if
-    (password.text.trim().length==0){
+    if (password.text.trim().length == 0) {
       Fluttertoast.showToast(msg: 'Password is required');
       return false;
     }
