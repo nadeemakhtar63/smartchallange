@@ -2,6 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:smartchallange/ApiService/AuthService.dart';
 import 'package:smartchallange/ModelClasse/AuthModel.dart';
+<<<<<<< HEAD
+=======
+
+>>>>>>> b4c9404a027b2846fd72f7b11ffccda4b8794ca6
 import 'package:smartchallange/Widget/my_text_field.dart';
 
 class LogInScreen extends StatefulWidget {

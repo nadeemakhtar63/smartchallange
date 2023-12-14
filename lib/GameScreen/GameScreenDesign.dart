@@ -377,6 +377,8 @@ class _GameScrennDesignState extends State<GameScrennDesign> {
 
   }
   int i=0;
+  String currectAns="";
+  bool ischecked=false;
  //  Future<void> fetchData() async {
  // Uri uri=Uri.parse('https://barashada.com/api/script/api?action=activity-review');
  //  try{
@@ -416,6 +418,7 @@ class _GameScrennDesignState extends State<GameScrennDesign> {
     List<Map<String, dynamic>> itemList=[];
     itemList = apiData[0];
     return  Scaffold(
+
         body:
     //     ListView.builder(
     //     itemCount: apiData.length,
@@ -423,18 +426,24 @@ class _GameScrennDesignState extends State<GameScrennDesign> {
     // {
 
       // return
-        InkWell(
-        onTap: (){
+        Container(
+          height: double.infinity,
+          decoration: BoxDecoration(
+            image: DecorationImage(image: AssetImage("assets/gamebackimage.jpg"),fit: BoxFit.cover)
+          ),
+          child: InkWell(
+          onTap: (){
        setState(() {
-         itemList = apiData[i];
-         i++;
+           itemList = apiData[i];
+           i++;
        });
-        },
-         child: Card(
-          margin: EdgeInsets.all(8.0),
-          child: Padding(
-            padding: EdgeInsets.all(8.0),
-            child: GridView.builder(
+          },
+           child: Card(
+             color: Colors.transparent,
+            margin: EdgeInsets.all(8.0),
+            child: Padding(
+              padding: EdgeInsets.all(8.0),
+              child: GridView.builder(
     physics: NeverScrollableScrollPhysics(),
     shrinkWrap: true,
     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
@@ -447,12 +456,40 @@ class _GameScrennDesignState extends State<GameScrennDesign> {
     if (itemList[index]['type'] == 'image') {
     return Column(
     children: [
-    Card(
-    child: Image.network(
-    itemList[index]['value'],
-    width: 100,
-    height: 100,
-    ),
+    InkWell(
+      onTap: (){
+        if(currectAns.isEmpty)
+        {
+          setState(() {
+            currectAns = itemList[index]['id'];
+          });
+        }
+        else {
+          // setState(() {
+          if(currectAns == itemList[index]['id']){
+          setState(() {
+            ischecked=true;
+          });
+          }
+          // });
+        }
+      },
+      child: Card(
+      child: Container(
+        width: 100,
+        height: 100,
+        decoration: BoxDecoration(
+          image: DecorationImage(
+              image:NetworkImage(itemList[index]['value']))
+        ),
+        child:ischecked?Image.asset("assets/trueicon.png"):null,
+        // child: Image.network(
+        // itemList[index]['value'],
+        // width: 100,
+        // height: 100,
+        // ),
+      ),
+      ),
     ),
     // Container(
     //     width: 100,
@@ -463,57 +500,84 @@ class _GameScrennDesignState extends State<GameScrennDesign> {
     );
     }
     else if (itemList[index]['type'] == 'text') {
-    return Card(
-    child: Container(
-    width: 100,
-    height: 100,
-    // decoration: BoxDecoration(
-    //   color: Colors.deepPurpleAccent
-    // ),
-    child: Center(child: Text(itemList[index]['value']))),
+    return InkWell(
+     onTap: (){
+
+     },
+      child: Card(
+      child: InkWell(
+        onTap: (){
+    if(currectAns.isEmpty)
+    {
+      setState(() {
+        currectAns = itemList[index]['id'];
+      });
+    }
+    else {
+      // setState(() {
+       if(currectAns == itemList[index]['id']){
+        setState(() {
+          ischecked=true;
+
+        });
+       }
+      // });
+    }
+
+        },
+        child: Container(
+        width: 100,
+        height: 100,
+        // decoration: BoxDecoration(
+        //   image: DecorationImage(image:ischecked?AssetImage("assets/trueicon.png"):)
+        // ),
+        child: ischecked?Image.asset("assets/trueicon.png"):Center(child: Text(itemList[index]['value']))),
+      ),
+      ),
     );
     }
     }
-            // Column(
-            //   children: itemList.map<Widget>((item) {
-            //     if (item['type'] == 'image') {
-            //       return Column(
-            //         children: [
-            //           Card(
-            //             child: Image.network(
-            //               item['value'],
-            //               width: 100,
-            //               height: 100,
-            //             ),
-            //           ),
-            //           // Container(
-            //           //     width: 100,
-            //           //     height: 100,
-            //           //     child: Text(item['id'])
-            //           // ),
-            //         ],
-            //       );
-            //     }
-            //     else if (item['type'] == 'text') {
-            //       return Card(
-            //         child: Container(
-            //             width: 100,
-            //             height: 100,
-            //             // decoration: BoxDecoration(
-            //             //   color: Colors.deepPurpleAccent
-            //             // ),
-            //             child: Center(child: Text(item['value']))),
-            //       );
-            //     }
-            //     return Container(); // Return an empty container for unknown types
-            //   }).toList(),
-            // ),
+              // Column(
+              //   children: itemList.map<Widget>((item) {
+              //     if (item['type'] == 'image') {
+              //       return Column(
+              //         children: [
+              //           Card(
+              //             child: Image.network(
+              //               item['value'],
+              //               width: 100,
+              //               height: 100,
+              //             ),
+              //           ),
+              //           // Container(
+              //           //     width: 100,
+              //           //     height: 100,
+              //           //     child: Text(item['id'])
+              //           // ),
+              //         ],
+              //       );
+              //     }
+              //     else if (item['type'] == 'text') {
+              //       return Card(
+              //         child: Container(
+              //             width: 100,
+              //             height: 100,
+              //             // decoration: BoxDecoration(
+              //             //   color: Colors.deepPurpleAccent
+              //             // ),
+              //             child: Center(child: Text(item['value']))),
+              //       );
+              //     }
+              //     return Container(); // Return an empty container for unknown types
+              //   }).toList(),
+              // ),
+            ),
           ),
-        ),
       // );
       // );
     // }
     )
+          ),
         )
     );
 
