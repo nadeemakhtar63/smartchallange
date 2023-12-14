@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:get/get.dart';
-import 'package:smartchallange/ModelClasse/DataModel.dart';
+// import 'package:smartchallange/ModelClasse/DataModel.dart';
 import 'package:http/http.dart' as http;
 class ApiService extends GetConnect {
   // Future<DataModel> fetchData() async {

@@ -2,7 +2,8 @@ import 'dart:convert';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:smartchallange/HomeScreen.dart';
-import 'package:smartchallange/ModelClasse/DataModel.dart';
+import 'package:smartchallange/ModelClasse/AuthModel.dart';
+// import 'package:smartchallange/ModelClasse/DataModel.dart';
 class AuthService {
   Uri apiUrl =Uri.parse('https://barashada.com/api/script/api?action=login');
 
