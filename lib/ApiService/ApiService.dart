@@ -1,37 +1,108 @@
 import 'dart:convert';
 
 import 'package:get/get.dart';
-// import 'package:smartchallange/ModelClasse/DataModel.dart';
+
 import 'package:http/http.dart' as http;
+import 'package:smartchallange/ModelClasse/CourseRequestModel.dart';
+import 'package:smartchallange/ModelClasse/DashboardRequestModel.dart';
+import 'package:smartchallange/ModelClasse/SectionRequestModel.dart';
+
 class ApiService extends GetConnect {
-  // Future<DataModel> fetchData() async {
-  //   final String apiUr= 'https://barashada.com/api/script/api?action=activity-game';
-  //
-  //   Uri _uriPage = Uri.parse(
-  //       'https://barashada.com/api/script/api?action=activity-game');
-  //   try {
-  //     var response = await http.post(
-  //       _uriPage,
-  //       headers: {
-  //
-  //         'Authorization': 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpZCI6Ijc0IiwiZmlyc3RfbmFtZSI6IkRhbml5YSIsImxhc3RfbmFtZSI6IlNhbWF0ZXIiLCJlbWFpbCI6ImRuc3NhbWF0ZXJAZ21haWwuY29tIiwiZXhwaXJlIjoxNjk3Mzc0MTk5fQ.mqcs82bwlcM836IqEkAHYZSIggGbkFB0UEAcc1Hy6BdKoJGAR14aD9s98lw2JYRNgzY2BD6Fyg0AHl33-qJ07HQZrjy2ckROiC7gqT5MSP-WoVc-uYqdMt93KaSStkqjeMYZh0OA43xKAJ5dGvGrJeAPmYYmrmgcFKwHP_iL7GT_YX6cR0p9chGJTKNP0-x63G_I3TTK6xJqPCJqSWOO2DlNdgCdBObQy5m73nwtFncRQ-GuIFajnpoErfz7BaKCxGmA_g96uWZo3ao7F4o0y6HfapDM15XkKISOdDIHJ9gZiG0ecTJdYeEtGQANSvhZf9mQs_g1m-jOinm6ZxUWgw'},
-  //       body: {
-  //         "Content-Type":"application/json; charset=utf-8",
-  //         "course_id":"20","section_id":"126","user_id":"74"},
-  //     );
-  //     if (response.statusCode == 200) {
-  //       // throw Exception('Error fetching data');
-  //       print('Error  ${response.statusCode}: ${response.persistentConnection}');
-  //       print('Response Body: ${response.bodyBytes}');
-  //       print('Response Status Code: ${response.statusCode}');
-  //       print('Response Body: ${response.body}');
-  //       throw Exception('Error fetching data');
-  //     }
-  //     return DataModel.fromJson(jsonDecode(response.body));
-  //   }
-  //   catch (e) {
-  //     print('Exception: $e');
-  //     return null!;
-  //   }
-  // }
+  static Future<DashboardRequestModel> requestDashboard(
+      {required String token, required String userId}) async {
+    try {
+      var headers = {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer $token',
+      };
+      var request = http.Request('POST',
+          Uri.parse('https://barashada.com/api/script/api?action=dashboard'));
+      request.body = json.encode({"user_id": userId});
+      request.headers.addAll(headers);
+
+      http.StreamedResponse response = await request.send();
+
+      if (response.statusCode == 200) {
+        var temp = (await response.stream.bytesToString());
+        var tempJson = jsonDecode(temp);
+        return DashboardRequestModel.fromJson(tempJson);
+      } else {
+        var temp = (await response.stream.bytesToString());
+        var tempJson = jsonDecode(temp);
+        return DashboardRequestModel.fromJson(tempJson);
+      }
+    } on Exception catch (e) {
+      print(e);
+      return DashboardRequestModel();
+      // TODO
+    }
+  }
+
+  static Future<SectionRequestModel> requestSection(
+      {required String token,
+      required String userId,
+      required String courseId,
+      required String sectionId}) async {
+    try {
+      var headers = {
+        'Authorization': 'Bearer $token',
+        'Content-Type': 'text/plain'
+      };
+      var request = http.Request('POST',
+          Uri.parse('https://barashada.com/api/script/api?action=section'));
+      request.body = json.encode(
+        {"user_id": userId, "course_id": courseId, "section_id": sectionId},
+      );
+      request.headers.addAll(headers);
+
+      http.StreamedResponse response = await request.send();
+
+      if (response.statusCode == 200) {
+        var temp = (await response.stream.bytesToString());
+        var tempJson = jsonDecode(temp);
+        return SectionRequestModel.fromJson(tempJson);
+      } else {
+        var temp = (await response.stream.bytesToString());
+        var tempJson = jsonDecode(temp);
+        return SectionRequestModel.fromJson(tempJson);
+      }
+    } on Exception catch (e) {
+      print(e);
+      return SectionRequestModel();
+      // TODO
+    }
+  }
+
+  static Future<CourseRequestModel> requestCourse({
+    required String token,
+    required String userId,
+    required String courseId,
+  }) async {
+    try {
+      var headers = {
+        'Authorization': 'Bearer $token',
+        'Content-Type': 'text/plain',
+      };
+      var request = http.Request('POST',
+          Uri.parse('https://barashada.com/api/script/api?action=course'));
+      request.body = json.encode({"user_id": userId, "course_id": courseId});
+      request.headers.addAll(headers);
+
+      http.StreamedResponse response = await request.send();
+
+      if (response.statusCode == 200) {
+        var temp = (await response.stream.bytesToString());
+        var tempJson = jsonDecode(temp);
+        return CourseRequestModel.fromJson(tempJson);
+      } else {
+        var temp = (await response.stream.bytesToString());
+        var tempJson = jsonDecode(temp);
+        return CourseRequestModel.fromJson(tempJson);
+      }
+    } on Exception catch (e) {
+      print(e);
+      return CourseRequestModel();
+      // TODO
+    }
+  }
 }
