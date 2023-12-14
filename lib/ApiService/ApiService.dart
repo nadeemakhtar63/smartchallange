@@ -1,10 +1,14 @@
 import 'dart:convert';
 
 import 'package:get/get.dart';
-import 'package:smartchallange/ModelClasse/AuthModel.dart';
+
 import 'package:http/http.dart' as http;
 import 'package:smartchallange/ModelClasse/CourseRequestModel.dart';
 import 'package:smartchallange/ModelClasse/DashboardRequestModel.dart';
+import 'package:smartchallange/ModelClasse/FlashCardActivityModel.dart';
+import 'package:smartchallange/ModelClasse/GameActivityRequestModel.dart';
+import 'package:smartchallange/ModelClasse/PracticeActivityModel.dart';
+import 'package:smartchallange/ModelClasse/ReviewActivityModel.dart';
 import 'package:smartchallange/ModelClasse/SectionRequestModel.dart';
 
 class ApiService extends GetConnect {
@@ -102,6 +106,153 @@ class ApiService extends GetConnect {
     } on Exception catch (e) {
       print(e);
       return CourseRequestModel();
+      // TODO
+    }
+  }
+
+  static Future<FlashCardActivityModel> requestFlashCardActivity({
+    required String token,
+    required String userId,
+    required String sectionId,
+    required String courseId,
+  }) async {
+    try {
+      var headers = {
+        'Authorization': token,
+        'Content-Type': 'text/plain',
+      };
+      var request = http.Request(
+          'POST',
+          Uri.parse(
+              'https://barashada.com/api/script/api?action=activity-review'));
+      request.body = json.encode(
+          {"course_id": courseId, "section_id": sectionId, "user_id": userId});
+      request.headers.addAll(headers);
+
+      http.StreamedResponse response = await request.send();
+
+      if (response.statusCode == 200) {
+        var temp = (await response.stream.bytesToString());
+        var tempJson = jsonDecode(temp);
+        return FlashCardActivityModel.fromJson(tempJson);
+      } else {
+        var temp = (await response.stream.bytesToString());
+        var tempJson = jsonDecode(temp);
+        return FlashCardActivityModel.fromJson(tempJson);
+      }
+    } on Exception catch (e) {
+      print(e);
+      return FlashCardActivityModel();
+      // TODO
+    }
+  }
+
+  static Future<PracticeActivityModel> requestPracticeActivity({
+    required String token,
+    required String userId,
+    required String sectionId,
+    required String courseId,
+  }) async {
+    try {
+      var headers = {
+        'Authorization': token,
+        'Content-Type': 'text/plain',
+      };
+      var request = http.Request(
+          'POST',
+          Uri.parse(
+              'https://barashada.com/api/script/api?action=activity-practice'));
+      request.body = json.encode(
+          {"course_id": courseId, "section_id": sectionId, "user_id": userId});
+      request.headers.addAll(headers);
+
+      http.StreamedResponse response = await request.send();
+
+      if (response.statusCode == 200) {
+        var temp = (await response.stream.bytesToString());
+        var tempJson = jsonDecode(temp);
+        return PracticeActivityModel.fromJson(tempJson);
+      } else {
+        var temp = (await response.stream.bytesToString());
+        var tempJson = jsonDecode(temp);
+        return PracticeActivityModel.fromJson(tempJson);
+      }
+    } on Exception catch (e) {
+      print(e);
+      return PracticeActivityModel();
+      // TODO
+    }
+  }
+
+  static Future<ReviewActivityModel> requestReviewActivity({
+    required String token,
+    required String userId,
+    required String sectionId,
+    required String courseId,
+  }) async {
+    try {
+      var headers = {
+        'Authorization': token,
+        'Content-Type': 'text/plain',
+      };
+      var request = http.Request(
+          'POST',
+          Uri.parse(
+              'https://barashada.com/api/script/api?action=activity-review'));
+      request.body = json.encode(
+          {"course_id": courseId, "section_id": sectionId, "user_id": userId});
+      request.headers.addAll(headers);
+
+      http.StreamedResponse response = await request.send();
+
+      if (response.statusCode == 200) {
+        var temp = (await response.stream.bytesToString());
+        var tempJson = jsonDecode(temp);
+        return ReviewActivityModel.fromJson(tempJson);
+      } else {
+        var temp = (await response.stream.bytesToString());
+        var tempJson = jsonDecode(temp);
+        return ReviewActivityModel.fromJson(tempJson);
+      }
+    } on Exception catch (e) {
+      print(e);
+      return ReviewActivityModel();
+      // TODO
+    }
+  }
+
+  static Future<GameActivityModel> requestGameActivity({
+    required String token,
+    required String userId,
+    required String sectionId,
+    required String courseId,
+  }) async {
+    try {
+      var headers = {
+        'Authorization': 'Bearer $token',
+        'Content-Type': 'text/plain'
+      };
+      var request = http.Request(
+          'POST',
+          Uri.parse(
+              'https://barashada.com/api/script/api?action=activity-game'));
+      request.body = json.encode(
+          {"course_id": userId, "section_id": sectionId, "user_id": userId});
+      request.headers.addAll(headers);
+
+      http.StreamedResponse response = await request.send();
+      if (response.statusCode == 200) {
+        var temp = (await response.stream.bytesToString());
+        var tempJson = jsonDecode(temp);
+        return GameActivityModel.fromJson(tempJson);
+      } else {
+        var temp = (await response.stream.bytesToString());
+        var tempJson = jsonDecode(temp);
+        return GameActivityModel.fromJson(tempJson);
+      }
+    } on Exception catch (e) {
+      print(e);
+      return GameActivityModel();
       // TODO
     }
   }

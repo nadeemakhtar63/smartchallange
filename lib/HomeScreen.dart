@@ -268,71 +268,72 @@ class _HomeScreenState extends State<HomeScreen> {
           data['data']['courses'].length, (index) {
       final course = data['data']['courses'][index];
       return InkWell(
-                             onTap: (){
-                              showModalBottomSheet(
-                                backgroundColor: Color(0xc713cfe7).withOpacity(0.9),
-                                shape: RoundedRectangleBorder(borderRadius: BorderRadius.only(topLeft: Radius.circular(20),topRight: Radius.circular(20)),),
-                                  context: context,
-                                  builder: (context){
-                                    return Container(
-                                      // height: 200,
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.only(topRight: Radius.circular(20),topLeft: Radius.circular(20))
-                                      ),
-                                      child: Column(
-                                       mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                        children: [
-                                          Padding(
-                                            padding: const EdgeInsets.only(right: 8.0),
-                                            child: InkWell(
-                                              onTap: (){
-                                                Navigator.pop(context);
-                                              },
-                                              child: Align(
-                                                alignment: Alignment.topRight,
-                                                child: Icon(Icons.highlight_remove,size: 35,color: Colors.red,),
-                                              ),
-                                            ),
-                                          ),
-                                          const Padding(
-                                            padding: EdgeInsets.all(8.0),
-                                            child: Divider(height: 2,color: Colors.black,),
-                                          ),
-                                          InkWell(
-                                            onTap: (){
-                                            Get.to(MyHomePage());
-                                            },
-                                            child: const SizedBox(
-                                              child: Row(
-                                                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                                children: [
-                                                Icon(Icons.audiotrack_rounded,size: 45,),
-                                                Text("Audio",style: TextStyle(fontSize: 20),)
-                                              ],),
-                                            ),
-                                          ),
-                                          const Padding(
-                                            padding: EdgeInsets.all(8.0),
-                                            child: Divider(height: 2,color: Colors.black,),
-                                          ),
-                                          InkWell(
-                                            onTap: (){
-                                              Get.to(LessonMainSScreen());
-                                            },
-                                            child: const SizedBox(
-                                              child: Row(
-                                                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                                children: [
-                                                  Icon(Icons.menu_book_outlined,size: 45,),
-                                                  Text("Contents",style: TextStyle(fontSize: 20),)
-
-                                                ],),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    );
-                                  });
+        onTap: (){
+        Get.to(LessonMainSScreen());
+        // showModalBottomSheet(
+                              //   backgroundColor: Color(0xc713cfe7).withOpacity(0.9),
+                              //   shape: RoundedRectangleBorder(borderRadius: BorderRadius.only(topLeft: Radius.circular(20),topRight: Radius.circular(20)),),
+                              //     context: context,
+                              //     builder: (context){
+                              //       return Container(
+                              //         // height: 200,
+                              //         decoration: BoxDecoration(
+                              //           borderRadius: BorderRadius.only(topRight: Radius.circular(20),topLeft: Radius.circular(20))
+                              //         ),
+                              //         child: Column(
+                              //          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              //           children: [
+                              //             Padding(
+                              //               padding: const EdgeInsets.only(right: 8.0),
+                              //               child: InkWell(
+                              //                 onTap: (){
+                              //                   Navigator.pop(context);
+                              //                 },
+                              //                 child: Align(
+                              //                   alignment: Alignment.topRight,
+                              //                   child: Icon(Icons.highlight_remove,size: 35,color: Colors.red,),
+                              //                 ),
+                              //               ),
+                              //             ),
+                              //             const Padding(
+                              //               padding: EdgeInsets.all(8.0),
+                              //               child: Divider(height: 2,color: Colors.black,),
+                              //             ),
+                              //             // InkWell(
+                              //             //   onTap: (){
+                              //             //   Get.to(MyHomePage());
+                              //             //   },
+                              //             //   child: const SizedBox(
+                              //             //     child: Row(
+                              //             //       mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              //             //       children: [
+                              //             //       Icon(Icons.audiotrack_rounded,size: 45,),
+                              //             //       Text("Audio",style: TextStyle(fontSize: 20),)
+                              //             //     ],),
+                              //             //   ),
+                              //             // ),
+                              //             // const Padding(
+                              //             //   padding: EdgeInsets.all(8.0),
+                              //             //   child: Divider(height: 2,color: Colors.black,),
+                              //             // ),
+                              //             InkWell(
+                              //               onTap: (){
+                              //                 Get.to(LessonMainSScreen());
+                              //               },
+                              //               child: const SizedBox(
+                              //                 child: Row(
+                              //                   mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              //                   children: [
+                              //                     Icon(Icons.menu_book_outlined,size: 45,),
+                              //                     Text("Contents",style: TextStyle(fontSize: 20),)
+                              //
+                              //                   ],),
+                              //               ),
+                              //             ),
+                              //           ],
+                              //         ),
+                              //       );
+                              //     });
         },
         child: CourseCard(
         courseId: course['course_id'],

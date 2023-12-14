@@ -273,6 +273,7 @@ class _GameScrennDesignState extends State<GameScrennDesign> {
             "type": "text",
             "id": "Balloon",
             "value": "Balloon"
+
           },
           {
             "type": "image",
@@ -433,31 +434,87 @@ class _GameScrennDesignState extends State<GameScrennDesign> {
           margin: EdgeInsets.all(8.0),
           child: Padding(
             padding: EdgeInsets.all(8.0),
-            child: Column(
-              children: itemList.map<Widget>((item) {
-                if (item['type'] == 'image') {
-                  return Column(
-                    children: [
-                      Image.network(
-                        item['value'],
-                        width: 100,
-                        height: 100,
-                      ),
-                      Text(item['id']),
-                    ],
-                  );
-                } else if (item['type'] == 'text') {
-                  return Text(item['value']);
-                }
-                return Container(); // Return an empty container for unknown types
-              }).toList(),
-            ),
+            child: GridView.builder(
+    physics: NeverScrollableScrollPhysics(),
+    shrinkWrap: true,
+    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+    crossAxisCount:3,
+    crossAxisSpacing: 5.0,
+    mainAxisSpacing: 5.0),
+    // gridDelegate: gridDelegate,
+    itemCount: itemList.length,
+    itemBuilder: (context, index) {
+    if (itemList[index]['type'] == 'image') {
+    return Column(
+    children: [
+    Card(
+    child: Image.network(
+    itemList[index]['value'],
+    width: 100,
+    height: 100,
+    ),
+    ),
+    // Container(
+    //     width: 100,
+    //     height: 100,
+    //     child: Text(item['id'])
+    // ),
+    ],
+    );
+    }
+    else if (itemList[index]['type'] == 'text') {
+    return Card(
+    child: Container(
+    width: 100,
+    height: 100,
+    // decoration: BoxDecoration(
+    //   color: Colors.deepPurpleAccent
+    // ),
+    child: Center(child: Text(itemList[index]['value']))),
+    );
+    }
+    }
+            // Column(
+            //   children: itemList.map<Widget>((item) {
+            //     if (item['type'] == 'image') {
+            //       return Column(
+            //         children: [
+            //           Card(
+            //             child: Image.network(
+            //               item['value'],
+            //               width: 100,
+            //               height: 100,
+            //             ),
+            //           ),
+            //           // Container(
+            //           //     width: 100,
+            //           //     height: 100,
+            //           //     child: Text(item['id'])
+            //           // ),
+            //         ],
+            //       );
+            //     }
+            //     else if (item['type'] == 'text') {
+            //       return Card(
+            //         child: Container(
+            //             width: 100,
+            //             height: 100,
+            //             // decoration: BoxDecoration(
+            //             //   color: Colors.deepPurpleAccent
+            //             // ),
+            //             child: Center(child: Text(item['value']))),
+            //       );
+            //     }
+            //     return Container(); // Return an empty container for unknown types
+            //   }).toList(),
+            // ),
           ),
         ),
       // );
       // );
     // }
     )
+        )
     );
 
   }
